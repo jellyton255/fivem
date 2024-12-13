@@ -128,7 +128,15 @@ void NUIApp::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame>
 	window->SetValue("nuiTargetGameBuild", CefV8Value::CreateInt(xbr::GetRequestedGameBuild()), V8_PROPERTY_ATTRIBUTE_READONLY);
 	window->SetValue("nuiTargetGamePureLevel", CefV8Value::CreateInt(fx::client::GetPureLevel()), V8_PROPERTY_ATTRIBUTE_READONLY);
 
-	double scaleFactor = 1.5; // placeholder
+	double scaleFactor = 1.0;
+
+	HDC hdc = GetDC(NULL); 
+	if (hdc) {
+		int dpi = GetDeviceCaps(hdc, LOGPIXELSX);
+		scaleFactor = static_cast<double>(dpi) / 96.0; // 96 DPI = 100%
+		ReleaseDC(NULL, hdc); 
+	}
+
 	window->SetValue("devicePixelRatio", CefV8Value::CreateDouble(scaleFactor), V8_PROPERTY_ATTRIBUTE_READONLY);
 
 	// FxDK API
