@@ -128,6 +128,8 @@ void NUIApp::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame>
 	window->SetValue("nuiTargetGameBuild", CefV8Value::CreateInt(xbr::GetRequestedGameBuild()), V8_PROPERTY_ATTRIBUTE_READONLY);
 	window->SetValue("nuiTargetGamePureLevel", CefV8Value::CreateInt(fx::client::GetPureLevel()), V8_PROPERTY_ATTRIBUTE_READONLY);
 
+	double scaleFactor = 1.5; // placeholder
+	window->SetValue("devicePixelRatio", CefV8Value::CreateDouble(scaleFactor), V8_PROPERTY_ATTRIBUTE_READONLY);
 
 	// FxDK API
 	{

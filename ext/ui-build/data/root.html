@@ -41,6 +41,18 @@ let handoverBlob = {};
 let serverAddress = '';
 let frameEscapeFunctions = {};
 
+document.addEventListener("DOMContentLoaded", () => {
+	const root = document.documentElement;
+
+    if (window.devicePixelRatio) {
+		root.style.transform = `scale(${window.devicePixelRatio})`;
+		root.style.transformOrigin = '0 0';
+
+		root.style.width = `${100 / window.devicePixelRatio}%`;
+		root.style.height = `${100 / window.devicePixelRatio}%`;
+	}
+});
+
 registerPushFunction(function(type, ...args) {
 	switch (type) {
 		case 'rootCall': {
@@ -84,6 +96,7 @@ registerFrameFunction(function(msg, frameName, frameUrl)
 		frame.src = frameUrl;
 		frame.tabIndex = -1;
 
+		
 		citFrames[frameName] = frame;
 		zStack.push(frameName);
 
